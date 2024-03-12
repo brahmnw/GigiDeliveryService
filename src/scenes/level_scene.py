@@ -46,4 +46,4 @@ class LevelScene(Scene):
 
     def render(self):
         self.screen.fill(WHITE)
-        self.player.display(self.screen, 0.1, show_hitbox=True)
+        self.player.display(self.screen, 0.1)

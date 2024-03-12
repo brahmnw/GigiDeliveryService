@@ -75,7 +75,7 @@ class Entity():
 
         # draw the hitbox if show_hitbox is on
         if show_hitbox:
-            pygame.draw.rect(surface, HITBOX_RED, self.hitbox)
+            pygame.draw.rect(surface, HITBOX_RED, self.hitbox, 2)
 
     def update_hitbox(self):
 
@@ -108,7 +108,14 @@ class Entity():
 
     def relative_adjust(self, screen: pygame.Surface, x_relative_pos=None, y_relative_pos=None):
 
-        """adjusts based on a fraction of the screen """
+        """
+        adjusts based on a fraction of the screen 
+        
+        Args:
+            screen (pygame.Surface): surface to center on.
+            x_relative_pos: value from 0 - 1, aligns sprite to that x location. default=None
+            y_relative_pos: value from 0 - 1, aligns sprite to that y location. default=None
+        """
 
         if x_relative_pos is not None:
             self.x = screen.get_width() * x_relative_pos - self.sprite_width * self.render_scale * (1/2)
