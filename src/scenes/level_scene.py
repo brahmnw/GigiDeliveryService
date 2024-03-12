@@ -1,7 +1,7 @@
 import pygame
 
 from src.constants import BLACK, WHITE
-from src.game_entities.player import Player
+from src.objs.player import Player
 from src.scenes.scene import Scene
 
 class LevelScene(Scene):

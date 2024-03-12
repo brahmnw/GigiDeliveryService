@@ -15,11 +15,12 @@ class Entity():
         hitbox (tuple): a tuple (x_adjustment,y_adjustment,length,width) which contains the hitbox rectangle of the entity
             x_adjustment - amount of pixels to move in the x axis
             y_adjustment -  amount of pixels to move in the y axis
+        speed (int): amount of pixels to move / tick (default: 2)
         sprite_width (int): width of the entity sprite sheet (default: 32)
         sprite_height (int): height of the entity sprite sheet (default: 32)
     """
 
-    def __init__(self, sprite_name:str, sprite_animation_frames:int, position:tuple, hitbox_args:tuple, sprite_width=32, sprite_height=32):
+    def __init__(self, sprite_name:str, sprite_animation_frames:int, position:tuple, hitbox_args:tuple, speed=2, sprite_width=32, sprite_height=32):
 
         # set constants
         self.name: str = sprite_name
@@ -27,6 +28,7 @@ class Entity():
         self.x = position[0]
         self.y = position[1]
         self.hitbox_args = hitbox_args
+        self.speed = speed 
 
         # calculate hitbox
 
