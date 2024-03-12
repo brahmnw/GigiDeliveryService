@@ -6,9 +6,11 @@ from src.scenes.scene import Scene
 
 class LevelScene(Scene):
 
+    """extends scene class. is used for level gameplay"""
+
     def __init__(self, screen):
         super().__init__(screen)
-        self.player = Player("gigi", (0,0), "hi")
+        self.player = Player("gigi", (screen.get_width() * (1/2), screen.get_height() * (3/4)))
 
     def process_input(self, events):
 
