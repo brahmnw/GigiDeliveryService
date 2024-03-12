@@ -1,6 +1,6 @@
 import pygame
 
-from src.constants import BLACK, WHITE
+from src.constants import WHITE
 from src.objs.player import Player
 from src.scenes.scene import Scene
 
@@ -13,9 +13,12 @@ class LevelScene(Scene):
         self.player = Player(
             "gigi",
             2,
-            (screen.get_width() * (1/2), screen.get_height() * (3/4)),
-            (41,41,20,20)
+            (0, 0),
+            (41,41,20,20),
+            render_scale=3
         )
+
+        self.player.relative_adjust(screen, x_relative_pos=(1/2), y_relative_pos=(3/4))
 
     def process_input(self, events):
 

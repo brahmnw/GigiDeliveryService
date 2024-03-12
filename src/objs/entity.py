@@ -15,12 +15,13 @@ class Entity():
         hitbox (tuple): a tuple (x_adjustment,y_adjustment,length,width) which contains the hitbox rectangle of the entity
             x_adjustment - amount of pixels to move in the x axis
             y_adjustment -  amount of pixels to move in the y axis
+        render_scale (int): magnitude which sprite is scaled up. (default: 1) player uses 3
         speed (int): amount of pixels to move / tick (default: 2)
         sprite_width (int): width of the entity sprite sheet (default: 32)
         sprite_height (int): height of the entity sprite sheet (default: 32)
     """
 
-    def __init__(self, sprite_name:str, sprite_animation_frames:int, position:tuple, hitbox_args:tuple, speed=2, sprite_width=32, sprite_height=32):
+    def __init__(self, sprite_name:str, sprite_animation_frames:int, position:tuple, hitbox_args:tuple, render_scale=1, speed=2, sprite_width=32, sprite_height=32):
 
         # set constants
         self.name: str = sprite_name
@@ -28,7 +29,10 @@ class Entity():
         self.x = position[0]
         self.y = position[1]
         self.hitbox_args = hitbox_args
-        self.speed = speed 
+        self.render_scale=render_scale
+        self.speed = speed
+        self.sprite_width = sprite_width
+        self.sprite_height = sprite_height
 
         # calculate hitbox
 
@@ -44,7 +48,7 @@ class Entity():
         for frame in range(sprite_animation_frames):
 
             self.sprites.append(
-                self.player_sprite_sheet.get_image(frame, sprite_width, sprite_height, 3)
+                self.player_sprite_sheet.get_image(frame, sprite_width, sprite_height, render_scale)
             )
 
         self.current_sprite = 0
@@ -73,6 +77,11 @@ class Entity():
         if show_hitbox:
             pygame.draw.rect(surface, HITBOX_RED, self.hitbox)
 
+    def update_hitbox(self):
+
+        self.hitbox = (self.x+self.hitbox_args[0], self.y+self.hitbox_args[1], self.hitbox_args[2], self.hitbox_args[3])
+        return None
+    
     def move(self, direction):
 
         """
@@ -95,6 +104,18 @@ class Entity():
         if direction == "down":
             self.y += self.speed
 
-        # readjust position of hitbox
+        self.update_hitbox()
 
-        self.hitbox = (self.x+self.hitbox_args[0], self.y+self.hitbox_args[1], self.hitbox_args[2], self.hitbox_args[3])
+    def relative_adjust(self, screen: pygame.Surface, x_relative_pos=None, y_relative_pos=None):
+
+        """adjusts based on a fraction of the screen """
+
+        if x_relative_pos is not None:
+            self.x = screen.get_width() * x_relative_pos - self.sprite_width * self.render_scale * (1/2)
+
+        if y_relative_pos is not None:
+            self.y = screen.get_height() * y_relative_pos - self.sprite_height * self.render_scale * (1/2)
+
+        self.update_hitbox()
+
+        return None
