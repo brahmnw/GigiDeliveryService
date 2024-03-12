@@ -1,5 +1,5 @@
 """
-constants to be used around the fuckin game n shi
+constants to be used around the game type shi
 """
 
 #settings

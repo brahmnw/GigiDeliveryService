@@ -10,7 +10,12 @@ class LevelScene(Scene):
 
     def __init__(self, screen):
         super().__init__(screen)
-        self.player = Player("gigi", (screen.get_width() * (1/2), screen.get_height() * (3/4)))
+        self.player = Player(
+            "gigi",
+            2,
+            (screen.get_width() * (1/2), screen.get_height() * (3/4)),
+            (41,41,20,20)
+        )
 
     def process_input(self, events):
 
@@ -38,4 +43,4 @@ class LevelScene(Scene):
 
     def render(self):
         self.screen.fill(WHITE)
-        self.player.display(self.screen)
+        self.player.display(self.screen, 0.1, show_hitbox=True)
