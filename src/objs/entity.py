@@ -34,9 +34,18 @@ class Entity():
         self.sprite_width = sprite_width
         self.sprite_height = sprite_height
 
-        # calculate hitbox
+        # calculate hitbox values
 
         self.hitbox = (self.x+self.hitbox_args[0], self.y+self.hitbox_args[1], self.hitbox_args[2], self.hitbox_args[3])
+        self.hitbox_rect = pygame.Rect(self.hitbox)
+
+        self.hitbox_x_center = int(self.hitbox[0] + (1/2) * self.hitbox[2])
+        self.hitbox_y_center = int(self.hitbox[1] + (1/2) * self.hitbox[3])
+
+        self.hitbox_left = self.hitbox[0]
+        self.hitbox_top = self.hitbox[1]
+        self.hitbox_right = self.hitbox[0] + self.hitbox[2]
+        self.hitbox_bottom = self.hitbox[1] + self.hitbox[3]
 
         # load the sprite sheet for the entity and feed it into spritesheet.py
         sprite_sheet_image = pygame.image.load('img/{0}.png'.format(sprite_name)).convert_alpha()
@@ -80,7 +89,15 @@ class Entity():
     def update_hitbox(self):
 
         self.hitbox = (self.x+self.hitbox_args[0], self.y+self.hitbox_args[1], self.hitbox_args[2], self.hitbox_args[3])
-        return None
+        self.hitbox_rect = pygame.Rect(self.hitbox)
+
+        self.hitbox_x_center = int(self.hitbox[0] + (1/2) * self.hitbox[2])
+        self.hitbox_y_center = int(self.hitbox[1] + (1/2) * self.hitbox[3])
+
+        self.hitbox_left = self.hitbox[0]
+        self.hitbox_top = self.hitbox[1]
+        self.hitbox_right = self.hitbox[0] + self.hitbox[2]
+        self.hitbox_bottom = self.hitbox[1] + self.hitbox[3]
     
     def move(self, direction):
 
@@ -126,3 +143,4 @@ class Entity():
         self.update_hitbox()
 
         return None
+        
