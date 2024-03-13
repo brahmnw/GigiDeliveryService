@@ -10,9 +10,9 @@ class LevelScene(Scene):
 
     """extends scene class. is used for level gameplay"""
 
-    def __init__(self, screen):
+    def __init__(self, screen, clock):
 
-        super().__init__(screen)
+        super().__init__(screen, clock)
 
         self.player = Player(
             "gigi",
@@ -25,6 +25,11 @@ class LevelScene(Scene):
         self.player.relative_adjust(screen, x_relative_pos=(1/2), y_relative_pos=(3/4))
         self.projectiles=[]
 
+        self.CREATE_PROJECTILE = pygame.USEREVENT
+        self.score = 0
+
+        pygame.time.set_timer(self.CREATE_PROJECTILE, 1000)
+
 
     def process_input(self, events):
 
@@ -33,11 +38,10 @@ class LevelScene(Scene):
             if event.type == pygame.QUIT:
                 self.terminate()
 
-            if event.type == pygame.KEYDOWN:
+            if event.type == self.CREATE_PROJECTILE:
 
-                if event.key == pygame.K_SPACE:
-                    for _ in range(10):
-                        self.spawn_projectile('pizza', ((1/random.randint(1,5)),random.randint(0,1)), relative_positioning=True)
+                for _ in range(15):
+                    self.spawn_projectile('pizza', (random.randint(1,self.screen.get_width()),random.randint(0,1)), relative_positioning_y=True)
 
 
         pressed = pygame.key.get_pressed()
@@ -57,6 +61,7 @@ class LevelScene(Scene):
     def update(self):
 
         player_collision = False
+        self.score += 1
 
         for projectile in self.projectiles:
             projectile.head_in_direction(projectile.direction, 5)
@@ -70,32 +75,33 @@ class LevelScene(Scene):
                 self.player.health -= 1
 
                 if self.player.health <= 0:
+                    print("YOU SUCK!!! Score: {}".format(self.score))
                     self.terminate()
 
-                print('---\nCOLLISION DETECTED!\nProjectiles: {0}\nPlayerCollision: {1}\nHealth: {2}'.format(self.projectiles, player_collision, self.player.health))
+                #print('---\nCOLLISION DETECTED!\nProjectiles: {0}\nPlayerCollision: {1}\nHealth: {2}'.format(self.projectiles, player_collision, self.player.health))
 
         #print('FRAME UPDATED!\nProjectiles: {0}\nPlayerCollision: {1}'.format(self.projectiles, player_collision))
 
     def render(self):
         self.screen.fill(WHITE)
-        self.player.display(self.screen, 0.1, show_hitbox=True)
+        self.player.display(self.screen, 0.1, show_hitbox=False)
 
         for projectile in self.projectiles:
-            projectile.display(self.screen, 0.1, show_hitbox=True)
+            projectile.display(self.screen, 0.1, show_hitbox=False)
 
-    def spawn_projectile(self, projectile_name, position, relative_positioning=True, direction=-90):
-
-        if relative_positioning:
-            projectile = Projectile(projectile_name, 1, (0,0), (8,8,16,16), direction=direction)
-            projectile.relative_adjust(self.screen, x_relative_pos=position[0], y_relative_pos=position[1])
+    def spawn_projectile(self, projectile_name, position, relative_positioning_x=False, relative_positioning_y=False, direction=-90):
+        projectile = Projectile(projectile_name, 1, (0,0), (8,8,16,16), direction=direction)
+        projectile.x = position[0]
+        projectile.y = position[1]
+        
+        if relative_positioning_y:
+            
+            projectile.relative_adjust(self.screen, y_relative_pos=position[1])
 
             if position[1] == 1:
                 projectile.direction = random.randint(0,180)
             
             if position[1] == 0:
                 projectile.direction = random.randint(-180,0)
-
-        else:
-            projectile = Projectile(projectile_name, 1, position, (8,8,16,16), direction=direction)
 
         self.projectiles.append(projectile)

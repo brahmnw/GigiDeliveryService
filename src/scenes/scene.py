@@ -5,9 +5,10 @@ class Scene:
     """
     setting the base scene so the game can easily do its good work
     """
-    def __init__(self, screen):
+    def __init__(self, screen, clock):
         self.next_scene = self
         self.screen = screen
+        self.clock = clock
 
     def process_input(self, events):
         pass

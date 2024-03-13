@@ -6,7 +6,7 @@ from src.scenes.level_scene import LevelScene
 class Game:
 
     def __init__(self, screen, clock):
-        self.active_scene = LevelScene(screen)
+        self.active_scene = LevelScene(screen, clock)
         self.clock = clock
 
     def run(self):
