@@ -47,8 +47,8 @@ class Entity():
         self.hitbox_right = self.hitbox[0] + self.hitbox[2]
         self.hitbox_bottom = self.hitbox[1] + self.hitbox[3]
 
-        # load the sprite sheet for the entity and feed it into spritesheet.py
-        sprite_sheet_image = pygame.image.load('img/{0}.png'.format(sprite_name)).convert_alpha()
+        # load the sprite sheet for the entity and feed it into spritesheet
+        sprite_sheet_image = pygame.image.load('assets/img/spritesheets/{0}.png'.format(sprite_name)).convert_alpha()
         self.player_sprite_sheet = SpriteSheet(sprite_sheet_image)
 
         # initiate all the different sprites for the entity
