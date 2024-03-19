@@ -43,7 +43,7 @@ class LevelScene(Scene):
 
             if event.type == self.CREATE_PROJECTILE:
 
-                for _ in range(15):
+                for _ in range(20):
                     self.spawn_projectile('bullet_round', (random.randint(1,self.screen.get_width()),random.randint(0,1)), relative_positioning_y=True)
 
 
@@ -67,7 +67,7 @@ class LevelScene(Scene):
         self.score += 1
 
         for projectile in self.projectiles:
-            projectile.head_in_direction(projectile.direction, 5)
+            projectile.head_in_direction(projectile.direction, projectile.speed)
 
             if (projectile.hitbox_left > self.screen.get_width()) or (projectile.hitbox_right < 0) or (projectile.hitbox_top > self.screen.get_height()) or (projectile.hitbox_bottom < 0):
                 self.projectiles.remove(projectile)
@@ -112,5 +112,8 @@ class LevelScene(Scene):
             
             if position[1] == 0:
                 projectile.direction = random.randint(-180,0)
+
+        
+        projectile.speed = random.randint(1,6)
 
         self.projectiles.append(projectile)
