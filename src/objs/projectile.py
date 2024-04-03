@@ -27,8 +27,3 @@ class Projectile(Entity):
         self.y -= move_y
 
         self.update_hitbox()
-
-    def move_towards(self, position):
-
-        dist_x = position[0] - self.x
-        dist_y = position[1] - self.y

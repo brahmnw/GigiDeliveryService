@@ -2,6 +2,7 @@ import pygame
 import random
 
 from src.constants import WHITE, BG_COLOR
+from src.objs.enemy import Enemy
 from src.objs.player import Player
 from src.objs.projectile import Projectile
 from src.scenes.scene import Scene
@@ -18,20 +19,20 @@ class LevelScene(Scene):
             "gigi2",
             4,
             (0, 0),
-            (11,27,10,10),
+            (14,34,13,13),
             sprite_height=64,
-            render_scale=1
+            render_scale=1.25
         )
 
         self.game_surface = pygame.Surface((600,688))
 
         self.player.relative_adjust(self.game_surface, x_relative_pos=(1/2), y_relative_pos=(3/4))
         self.projectiles=[]
+        self.enemies=[]
 
         self.CREATE_PROJECTILE = pygame.USEREVENT
+        self.current_level = 1
         self.score = 0
-
-        pygame.time.set_timer(self.CREATE_PROJECTILE, 1000)
 
 
     def process_input(self, events):
@@ -46,6 +47,19 @@ class LevelScene(Scene):
                 for _ in range(20):
                     self.spawn_projectile('bullet_round', (random.randint(1,self.screen.get_width()),random.randint(0,1)), relative_positioning_y=True)
 
+            if event.type == pygame.KEYDOWN:
+
+                if event.key == pygame.K_SPACE:
+                    test_enemy = Enemy(
+                        "gigi2",
+                        4,
+                        (self.game_surface.get_width()/2,self.game_surface.get_height()/4),
+                        (14,34,12,12),
+                        sprite_height=64,
+                        render_scale=1.25
+                    )
+                    self.enemies.append(test_enemy)
+                    test_enemy.circle_attack(self, 10)
 
         pressed = pygame.key.get_pressed()
 
@@ -63,7 +77,6 @@ class LevelScene(Scene):
 
     def update(self):
 
-        player_collision = False
         self.score += 1
 
         for projectile in self.projectiles:
@@ -81,10 +94,6 @@ class LevelScene(Scene):
                     print("YOU SUCK!!! Score: {}".format(self.score))
                     self.terminate()
 
-                #print('---\nCOLLISION DETECTED!\nProjectiles: {0}\nPlayerCollision: {1}\nHealth: {2}'.format(self.projectiles, player_collision, self.player.health))
-
-        #print('FRAME UPDATED!\nProjectiles: {0}\nPlayerCollision: {1}'.format(self.projectiles, player_collision))
-
     def render(self):
         
         
@@ -95,6 +104,9 @@ class LevelScene(Scene):
 
         for projectile in self.projectiles:
             projectile.display(self.game_surface, 0.1, show_hitbox=True)
+
+        for enemy in self.enemies:
+            enemy.display(self.game_surface, 0.1, show_hitbox=True)
 
         self.screen.blit(self.game_surface, (32,32))
 
@@ -113,7 +125,14 @@ class LevelScene(Scene):
             if position[1] == 0:
                 projectile.direction = random.randint(-180,0)
 
-        
-        projectile.speed = random.randint(1,6)
+        if relative_positioning_x:
+            
+            projectile.relative_adjust(self.game_surface, y_relative_pos=position[1])
+
+            if position[1] == 1:
+                projectile.direction = random.randint(0,180)
+            
+            if position[1] == 0:
+                projectile.direction = random.randint(-180,0)
 
         self.projectiles.append(projectile)
