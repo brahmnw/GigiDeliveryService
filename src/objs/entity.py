@@ -102,7 +102,7 @@ class Entity():
     def move(self, direction):
 
         """
-        move the character a direction based on speed of player :>
+        move the entity a direction based on its speed :>
 
         Args:
             direction (str): either left/right/up/down and adjusts the position of entity based on speed.

@@ -2,6 +2,7 @@ import pygame
 import random
 
 from src.constants import WHITE, BG_COLOR
+from src.level import Level
 from src.objs.enemy import Enemy
 from src.objs.player import Player
 from src.objs.projectile import Projectile
@@ -31,12 +32,16 @@ class LevelScene(Scene):
         self.enemies=[]
 
         self.CREATE_PROJECTILE = pygame.USEREVENT
-        self.current_level = 1
+        self.level_id = 1
+        self.level = Level(self, self.level_id)
         self.score = 0
+        self.starting_time = pygame.time.get_ticks()
+        self.elapsed_time = self.starting_time
 
 
     def process_input(self, events):
 
+        
         for event in events:
 
             if event.type == pygame.QUIT:
@@ -78,11 +83,13 @@ class LevelScene(Scene):
     def update(self):
 
         self.score += 1
+        self.elapsed_time = pygame.time.get_ticks() - self.starting_time
+        self.level.update_events(self.elapsed_time)
 
         for projectile in self.projectiles:
             projectile.head_in_direction(projectile.direction, projectile.speed)
 
-            if (projectile.hitbox_left > self.screen.get_width()) or (projectile.hitbox_right < 0) or (projectile.hitbox_top > self.screen.get_height()) or (projectile.hitbox_bottom < 0):
+            if (projectile.hitbox_left > self.game_surface.get_width()) or (projectile.hitbox_right < 0) or (projectile.hitbox_top > self.game_surface.get_height()) or (projectile.hitbox_bottom < 0):
                 self.projectiles.remove(projectile)
 
             if self.player.hitbox_rect.colliderect(projectile.hitbox_rect):
@@ -93,6 +100,11 @@ class LevelScene(Scene):
                 if self.player.health <= 0:
                     print("YOU SUCK!!! Score: {}".format(self.score))
                     self.terminate()
+        
+        for enemy in self.enemies:
+            enemy.update_state()
+            if (projectile.hitbox_left > self.screen.get_width()) or (projectile.hitbox_right < 0) or (projectile.hitbox_top > self.screen.get_height()) or (projectile.hitbox_bottom < 0):
+                self.enemies.remove(enemy)
 
     def render(self):
         
@@ -100,18 +112,18 @@ class LevelScene(Scene):
         self.game_surface.fill(WHITE)
         self.screen.fill(BG_COLOR)
 
-        self.player.display(self.game_surface, 0.1, show_hitbox=True)
+        self.player.display(self.game_surface, 0.1, show_hitbox=False)
 
         for projectile in self.projectiles:
-            projectile.display(self.game_surface, 0.1, show_hitbox=True)
+            projectile.display(self.game_surface, 0.1, show_hitbox=False)
 
         for enemy in self.enemies:
-            enemy.display(self.game_surface, 0.1, show_hitbox=True)
+            enemy.display(self.game_surface, 0.1, show_hitbox=False)
 
         self.screen.blit(self.game_surface, (32,32))
 
-    def spawn_projectile(self, projectile_name, position, hitbox=(8,8,16,16), relative_positioning_x=False, relative_positioning_y=False, direction=-90):
-        projectile = Projectile(projectile_name, 1, (0,0), hitbox, direction=direction)
+    def spawn_projectile(self, projectile_name, position, hitbox=(8,8,16,16), speed=3, relative_positioning_x=False, relative_positioning_y=False, direction=-90):
+        projectile = Projectile(projectile_name, 1, (0,0), hitbox, direction=direction, speed=speed)
         projectile.x = position[0]
         projectile.y = position[1]
         
@@ -119,20 +131,8 @@ class LevelScene(Scene):
             
             projectile.relative_adjust(self.game_surface, y_relative_pos=position[1])
 
-            if position[1] == 1:
-                projectile.direction = random.randint(0,180)
-            
-            if position[1] == 0:
-                projectile.direction = random.randint(-180,0)
-
         if relative_positioning_x:
             
-            projectile.relative_adjust(self.game_surface, y_relative_pos=position[1])
-
-            if position[1] == 1:
-                projectile.direction = random.randint(0,180)
-            
-            if position[1] == 0:
-                projectile.direction = random.randint(-180,0)
+            projectile.relative_adjust(self.game_surface, x_relative_pos=position[0])
 
         self.projectiles.append(projectile)
