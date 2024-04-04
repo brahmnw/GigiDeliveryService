@@ -102,23 +102,24 @@ class LevelScene(Scene):
                     self.terminate()
         
         for enemy in self.enemies:
-            enemy.update_state()
-            if (projectile.hitbox_left > self.screen.get_width()) or (projectile.hitbox_right < 0) or (projectile.hitbox_top > self.screen.get_height()) or (projectile.hitbox_bottom < 0):
+            enemy.update_position()
+            if (enemy.hitbox_left > self.screen.get_width()) or (enemy.hitbox_right < 0) or (enemy.hitbox_top > self.screen.get_height()) or (enemy.hitbox_bottom < 0):
                 self.enemies.remove(enemy)
 
     def render(self):
         
+        show_hitbox=True
         
         self.game_surface.fill(WHITE)
         self.screen.fill(BG_COLOR)
 
-        self.player.display(self.game_surface, 0.1, show_hitbox=False)
+        self.player.display(self.game_surface, 0.1, show_hitbox=show_hitbox)
 
         for projectile in self.projectiles:
-            projectile.display(self.game_surface, 0.1, show_hitbox=False)
+            projectile.display(self.game_surface, 0.1, show_hitbox=show_hitbox)
 
         for enemy in self.enemies:
-            enemy.display(self.game_surface, 0.1, show_hitbox=False)
+            enemy.display(self.game_surface, 0.1, show_hitbox=show_hitbox)
 
         self.screen.blit(self.game_surface, (32,32))
 
