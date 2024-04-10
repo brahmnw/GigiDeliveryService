@@ -12,7 +12,7 @@ class Enemy(Entity):
     def __init__(self, sprite_name:str, sprite_animation_frames:int, position:tuple, hitbox_args:tuple, render_scale=1, speed=2, sprite_width=32, sprite_height=32):
         super().__init__(sprite_name, sprite_animation_frames, position, hitbox_args, render_scale, speed, sprite_width, sprite_height)
         self.heading_towards = position
-        self.end_position = (800, -100)
+        self.end_position = (self.heading_towards[0], -100)
         self.movement_state = 0
         self.attack = self.circle_attack
 
@@ -21,12 +21,17 @@ class Enemy(Entity):
         try:
             angle = (math.atan((self.position[1] - self.heading_towards[1])/(self.heading_towards[0] - self.position[0]))) 
 
+            if self.x > self.heading_towards[0]:
+                angle += math.pi
+
+            elif self.y >= self.heading_towards[1]:
+                angle += math.pi
+
         except ZeroDivisionError:
-            angle = 0
+            angle = math.pi/2
 
         if self.movement_state == 0:
             if util.position_is_close((self.x,self.y), self.heading_towards):
-                print("im here")
                 self.heading_towards = self.end_position
                 self.movement_state = 1
                 return True     
@@ -47,7 +52,7 @@ class Enemy(Entity):
         projectile.direction = direction
         scene.projectiles.append(projectile)
 
-    def circle_attack(self, scene, count=6, starting_angle=0):
+    def circle_attack(self, scene, count=12, starting_angle=0):
         
         for i in range(count):
 

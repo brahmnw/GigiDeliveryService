@@ -109,7 +109,7 @@ class LevelScene(Scene):
 
     def render(self):
         
-        show_hitbox=True
+        show_hitbox=False
         
         self.game_surface.fill(WHITE)
         self.screen.fill(BG_COLOR)

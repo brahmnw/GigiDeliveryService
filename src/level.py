@@ -10,9 +10,22 @@ class Level:
 
         # a list of tuples (time, list of events)
         self.level_events = [
-            (0, [self.spawn_enemy], []),
-            (1000, [self.rain_projectiles], []),
-            (2000, [self.spawn_enemy], [])
+            (0, [self.spawn_enemy], ["gigi2", (250,0), (300,250)]),
+            (50, [self.spawn_enemy], ["gigi2", (200,0), (300,250)]),
+            (100, [self.spawn_enemy], ["gigi2", (300,0), (300,250)]),
+            (150, [self.spawn_enemy], ["gigi2", (150,0), (300,250)]),
+            (200, [self.spawn_enemy], ["gigi2", (350,0), (300,250)]),
+            (2000, [self.spawn_enemy], ["gigi2", (0,0), (250, 150)]),
+            (2200, [self.spawn_enemy], ["gigi2", (0,0), (300, 150)]),
+            (2400, [self.spawn_enemy], ["gigi2", (0,0), (350, 150)]),
+            (2600, [self.spawn_enemy], ["gigi2", (0,0), (400, 150)]),
+            (3000, [self.rain_projectiles], [12,0]),
+            (3200, [self.spawn_enemy], ["gigi2", (550,0), (350, 150)]),
+            (3400, [self.spawn_enemy], ["gigi2", (550,0), (300, 150)]),
+            (3600, [self.spawn_enemy], ["gigi2", (550,0), (250, 150)]),
+            (3500, [self.rain_projectiles], [12,10]),
+            (4000, [self.rain_projectiles], [12,20]),
+            (5000, [self.rain_projectiles], [12,30])
         ]
 
     def update_events(self, elapsed_time):
@@ -21,7 +34,7 @@ class Level:
 
             if elapsed_time >= event[0]:
                 for action in event[1]:
-                    action(*event[3])
+                    action(*event[2])
                 self.level_events.remove(event)
                 break
 
@@ -38,10 +51,10 @@ class Level:
         test_enemy = Enemy(
             sprite,
             4,
-            (0,0),
+            pos1,
             (14,34,12,12),
             sprite_height=64,
             render_scale=1.25
         )
-        test_enemy.heading_towards = (150,150)
+        test_enemy.heading_towards = pos2
         self.scene.enemies.append(test_enemy)
