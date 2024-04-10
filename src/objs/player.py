@@ -16,3 +16,4 @@ class Player(Entity):
         super().__init__(sprite_name, sprite_animation_frames, position, hitbox_args, render_scale, speed, sprite_width, sprite_height)
         self.health = initial_health
         
+        

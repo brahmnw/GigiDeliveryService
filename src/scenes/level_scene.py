@@ -47,13 +47,10 @@ class LevelScene(Scene):
             if event.type == pygame.QUIT:
                 self.terminate()
 
-            if event.type == self.CREATE_PROJECTILE:
-
-                for _ in range(20):
-                    self.spawn_projectile('bullet_round', (random.randint(1,self.screen.get_width()),random.randint(0,1)), relative_positioning_y=True)
-
             if event.type == pygame.KEYDOWN:
-
+                
+                pass
+                """
                 if event.key == pygame.K_SPACE:
                     test_enemy = Enemy(
                         "gigi2",
@@ -65,6 +62,7 @@ class LevelScene(Scene):
                     )
                     self.enemies.append(test_enemy)
                     test_enemy.circle_attack(self, 10)
+                """
 
         pressed = pygame.key.get_pressed()
 
@@ -102,7 +100,10 @@ class LevelScene(Scene):
                     self.terminate()
         
         for enemy in self.enemies:
-            enemy.update_position()
+            is_attack = enemy.update_position()
+            if is_attack:
+                enemy.attack(self)
+
             if (enemy.hitbox_left > self.screen.get_width()) or (enemy.hitbox_right < 0) or (enemy.hitbox_top > self.screen.get_height()) or (enemy.hitbox_bottom < 0):
                 self.enemies.remove(enemy)
 
