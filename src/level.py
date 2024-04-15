@@ -10,11 +10,11 @@ class Level:
 
         # a list of tuples (time, list of events)
         self.level_events = [
-            (0, [self.spawn_enemy], ["gigi2", (250,0), (300,250)]),
-            (50, [self.spawn_enemy], ["gigi2", (200,0), (300,250)]),
-            (100, [self.spawn_enemy], ["gigi2", (300,0), (300,250)]),
-            (150, [self.spawn_enemy], ["gigi2", (150,0), (300,250)]),
-            (200, [self.spawn_enemy], ["gigi2", (350,0), (300,250)]),
+            (0, [self.spawn_enemy], ["gigi2", (0,0), (300,150)]),
+            (50, [self.spawn_enemy], ["gigi2", (0,0), (300,200)]),
+            (100, [self.spawn_enemy], ["gigi2", (0,0), (300,250)]),
+            (150, [self.spawn_enemy], ["gigi2", (0,0), (300,200)]),
+            (200, [self.spawn_enemy], ["gigi2", (0,0), (300,150)]),
             (2000, [self.spawn_enemy], ["gigi2", (0,0), (250, 150)]),
             (2200, [self.spawn_enemy], ["gigi2", (0,0), (300, 150)]),
             (2400, [self.spawn_enemy], ["gigi2", (0,0), (350, 150)]),
@@ -23,9 +23,16 @@ class Level:
             (3200, [self.spawn_enemy], ["gigi2", (550,0), (350, 150)]),
             (3400, [self.spawn_enemy], ["gigi2", (550,0), (300, 150)]),
             (3600, [self.spawn_enemy], ["gigi2", (550,0), (250, 150)]),
-            (3500, [self.rain_projectiles], [12,10]),
-            (4000, [self.rain_projectiles], [12,20]),
-            (5000, [self.rain_projectiles], [12,30])
+            (3500, [self.rain_projectiles], [14,10]),
+            (4000, [self.rain_projectiles], [14,20]),
+            (4100, [self.spawn_enemy], ["gigi2", (550,0), (200, 150)]),
+            (4100, [self.spawn_enemy], ["gigi2", (550,0), (300, 150)]),
+            (5000, [self.rain_projectiles], [14,30]),
+            (5500, [self.rain_projectiles], [14,20]),
+            (6500, [self.rain_projectiles], [14,10]),
+            (7000, [self.rain_projectiles], [14,20]),
+            (7500, [self.rain_projectiles], [14,30]),
+
         ]
 
     def update_events(self, elapsed_time):
