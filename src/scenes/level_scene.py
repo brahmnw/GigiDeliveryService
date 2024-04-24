@@ -50,19 +50,6 @@ class LevelScene(Scene):
             if event.type == pygame.KEYDOWN:
                 
                 pass
-                """
-                if event.key == pygame.K_SPACE:
-                    test_enemy = Enemy(
-                        "gigi2",
-                        4,
-                        (self.game_surface.get_width()/2,self.game_surface.get_height()/4),
-                        (14,34,12,12),
-                        sprite_height=64,
-                        render_scale=1.25
-                    )
-                    self.enemies.append(test_enemy)
-                    test_enemy.circle_attack(self, 10)
-                """
 
         pressed = pygame.key.get_pressed()
 
@@ -109,7 +96,7 @@ class LevelScene(Scene):
 
     def render(self):
         
-        show_hitbox=False
+        show_hitbox=True
         
         self.game_surface.fill(WHITE)
         self.screen.fill(BG_COLOR)

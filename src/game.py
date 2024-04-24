@@ -23,8 +23,4 @@ class Game:
             pygame.display.flip()
             self.clock.tick(FRAME_RATE)
             
-
         pygame.display.flip()
-
-
-                    
