@@ -1,0 +1,10 @@
+{
+	"recipient": "mimi",
+	"recipient_spritesheet": "mimi.png",
+	"voicelines": ["america ya! hallo!"],
+	"level_events": [
+		[0, "spawn_drone", ["gigi2", [0,0], [300,150]]],
+        [50, "spawn_drone", ["gigi2", [0,0], [300,200]]],
+        [3000, "rain_projectiles", [12,0]]
+	]
+}

@@ -2,13 +2,13 @@
 constants to be used around the game type shi
 """
 
-#settings
+# settings
 FRAME_RATE = 60
 SCREEN_WIDTH = 1024
 SCREEN_HEIGHT = 768
 TITLE = "GIGI'S DELIVERY SERVICE"
 
-#colors
+# colors
 BLACK = (0,0,0)
 WHITE = (255,255,255)
 HITBOX_RED = (255,0,0)

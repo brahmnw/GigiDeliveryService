@@ -6,6 +6,8 @@ from src.scenes.level_scene import LevelScene
 class Game:
 
     def __init__(self, screen, clock):
+        
+        # set default scene
         self.active_scene = LevelScene(screen, clock)
         self.clock = clock
 
@@ -22,5 +24,3 @@ class Game:
             # tick and update the frame
             pygame.display.flip()
             self.clock.tick(FRAME_RATE)
-            
-        pygame.display.flip()

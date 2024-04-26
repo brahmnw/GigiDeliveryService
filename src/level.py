@@ -1,5 +1,7 @@
+import json
 import pygame
-from src.objs.enemy import Enemy
+from src.objs.enemies.drone import Drone
+from src.objs.projectile import Projectile
 import time
 
 
@@ -8,54 +10,41 @@ class Level:
     def __init__(self, scene, level_id=1):
         self.scene = scene
 
-        # a list of tuples (time, list of events)
+        # a list of tuples (time, event, args)
         self.level_events = [
-            (0, [self.spawn_enemy], ["gigi2", (0,0), (300,150)]),
-            (50, [self.spawn_enemy], ["gigi2", (0,0), (300,200)]),
-            (100, [self.spawn_enemy], ["gigi2", (0,0), (300,250)]),
-            (150, [self.spawn_enemy], ["gigi2", (0,0), (300,200)]),
-            (200, [self.spawn_enemy], ["gigi2", (0,0), (300,150)]),
-            (2000, [self.spawn_enemy], ["gigi2", (0,0), (250, 150)]),
-            (2200, [self.spawn_enemy], ["gigi2", (0,0), (300, 150)]),
-            (2400, [self.spawn_enemy], ["gigi2", (0,0), (350, 150)]),
-            (2600, [self.spawn_enemy], ["gigi2", (0,0), (400, 150)]),
-            (3000, [self.rain_projectiles], [12,0]),
-            (3200, [self.spawn_enemy], ["gigi2", (550,0), (350, 150)]),
-            (3400, [self.spawn_enemy], ["gigi2", (550,0), (300, 150)]),
-            (3600, [self.spawn_enemy], ["gigi2", (550,0), (250, 150)]),
-            (3500, [self.rain_projectiles], [14,10]),
-            (4000, [self.rain_projectiles], [14,20]),
-            (4100, [self.spawn_enemy], ["gigi2", (550,0), (200, 150)]),
-            (4100, [self.spawn_enemy], ["gigi2", (550,0), (300, 150)]),
-            (5000, [self.rain_projectiles], [14,30]),
-            (5500, [self.rain_projectiles], [14,20]),
-            (6500, [self.rain_projectiles], [14,10]),
-            (7000, [self.rain_projectiles], [14,20]),
-            (7500, [self.rain_projectiles], [14,30]),
 
         ]
+        
+        with open('orders/{0}/order.json'.format(level_id)) as f:
+            self.level_dict = json.load(f)
+            
+            for level in self.level_dict['level_events']:
+                
+                event = getattr(self, level[1])
+                
+                self.level_events.append((level[0], event, level[2]))
+            
 
     def update_events(self, elapsed_time):
         
         for event in self.level_events:
 
             if elapsed_time >= event[0]:
-                for action in event[1]:
-                    action(*event[2])
+                event[1](*event[2])
                 self.level_events.remove(event)
                 break
 
             else:
                 break
-
+    
     def rain_projectiles(self, num=16, offset=0):
         
         for i in range(num):
-            self.scene.spawn_projectile("bullet_round", ((self.scene.game_surface.get_width()/num)*i+offset,0),relative_positioning_y=True,speed=3)
+            self.spawn_projectile("bullet_round", ((self.scene.game_surface.get_width()/num)*i+offset,0),relative_positioning_y=True,speed=3)
+            
+    def spawn_drone(self, sprite, pos1, pos2):
 
-    def spawn_enemy(self, sprite, pos1, pos2):
-
-        test_enemy = Enemy(
+        drone = Drone(
             sprite,
             4,
             pos1,
@@ -63,5 +52,25 @@ class Level:
             sprite_height=64,
             render_scale=1.25
         )
-        test_enemy.heading_towards = pos2
-        self.scene.enemies.append(test_enemy)
+        drone.heading_towards = pos2
+        self.scene.enemies.append(drone)
+        
+    def spawn_projectile(self, projectile_name, position, hitbox=(8,8,16,16), speed=3, relative_positioning_x=False, relative_positioning_y=False, direction=-90):
+        
+        projectile = Projectile(projectile_name, 1, (0,0), hitbox, direction=direction, speed=speed)
+        projectile.x = position[0]
+        projectile.y = position[1]
+        
+        if relative_positioning_y:
+            
+            projectile.relative_adjust(self.scene.game_surface, y_relative_pos=position[1])
+
+        if relative_positioning_x:
+            
+            projectile.relative_adjust(self.scene.game_surface, x_relative_pos=position[0])
+
+        self.scene.projectiles.append(projectile)
+    
+    
+
+    

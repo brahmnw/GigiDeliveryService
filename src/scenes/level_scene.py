@@ -52,6 +52,8 @@ class LevelScene(Scene):
                 pass
 
         pressed = pygame.key.get_pressed()
+        
+        # deal with movements
 
         if pressed[pygame.K_w] or pressed[pygame.K_UP]:
             self.player.move("up")
@@ -111,17 +113,4 @@ class LevelScene(Scene):
 
         self.screen.blit(self.game_surface, (32,32))
 
-    def spawn_projectile(self, projectile_name, position, hitbox=(8,8,16,16), speed=3, relative_positioning_x=False, relative_positioning_y=False, direction=-90):
-        projectile = Projectile(projectile_name, 1, (0,0), hitbox, direction=direction, speed=speed)
-        projectile.x = position[0]
-        projectile.y = position[1]
-        
-        if relative_positioning_y:
-            
-            projectile.relative_adjust(self.game_surface, y_relative_pos=position[1])
-
-        if relative_positioning_x:
-            
-            projectile.relative_adjust(self.game_surface, x_relative_pos=position[0])
-
-        self.projectiles.append(projectile)
+    

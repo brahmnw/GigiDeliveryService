@@ -16,4 +16,26 @@ class Player(Entity):
         super().__init__(sprite_name, sprite_animation_frames, position, hitbox_args, render_scale, speed, sprite_width, sprite_height)
         self.health = initial_health
         
+    def move(self, direction):
+
+        """
+        move the entity a direction based on its speed :>
+
+        Args:
+            direction (str): either left/right/up/down and adjusts the position of entity based on speed.
         
+        """
+
+        if direction == "left":
+            self.x -= self.speed
+
+        if direction == "right":
+            self.x += self.speed
+
+        if direction == "up":
+            self.y -= self.speed
+
+        if direction == "down":
+            self.y += self.speed
+
+        self.update_hitbox()

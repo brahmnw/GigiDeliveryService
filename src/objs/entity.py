@@ -29,7 +29,7 @@ class Entity():
         self.x = position[0]
         self.y = position[1]
         self.hitbox_args = hitbox_args
-        self.render_scale=render_scale
+        self.render_scale = render_scale
         self.speed = speed
         self.sprite_width = sprite_width
         self.sprite_height = sprite_height
@@ -99,29 +99,7 @@ class Entity():
         self.hitbox_right = self.hitbox[0] + self.hitbox[2]
         self.hitbox_bottom = self.hitbox[1] + self.hitbox[3]
     
-    def move(self, direction):
-
-        """
-        move the entity a direction based on its speed :>
-
-        Args:
-            direction (str): either left/right/up/down and adjusts the position of entity based on speed.
-        
-        """
-
-        if direction == "left":
-            self.x -= self.speed
-
-        if direction == "right":
-            self.x += self.speed
-
-        if direction == "up":
-            self.y -= self.speed
-
-        if direction == "down":
-            self.y += self.speed
-
-        self.update_hitbox()
+    
 
     def relative_adjust(self, screen: pygame.Surface, x_relative_pos=None, y_relative_pos=None):
 
