@@ -1,4 +1,3 @@
-
 import pygame
 
 class Scene:
@@ -17,11 +16,14 @@ class Scene:
         print('u forgot to override this')
         pass
 
-    def render(self, screen):
+    def render(self):
         print('u forgot to override this')
 
-    def switch_scene(self, next_scene):
-        self.next_scene = next_scene
+    def switch_scene(self, new_scene):
+        if new_scene == 'previous':
+            new_scene = self
+        self.next_scene = new_scene
+        
 
     def terminate(self):
         self.switch_scene(None)

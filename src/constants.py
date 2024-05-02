@@ -6,10 +6,11 @@ constants to be used around the game type shi
 FRAME_RATE = 60
 SCREEN_WIDTH = 1024
 SCREEN_HEIGHT = 768
-TITLE = "GIGI'S DELIVERY SERVICE"
+TITLE = "GGDS"
 
 # colors
 BLACK = (0,0,0)
 WHITE = (255,255,255)
+GAMEPLAY_GRAY = (23,23,23)
 HITBOX_RED = (255,0,0)
 BG_COLOR = (53,53,89)  

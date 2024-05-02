@@ -11,8 +11,6 @@ class SpriteSheet:
         
         """
         Returns an image from a loaded spritesheet.
-        
-        
         """
         image = pygame.Surface((width, height)).convert_alpha()
         image.blit(self.sheet, (0,0), (0, frame*height, width, height))

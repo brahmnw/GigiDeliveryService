@@ -1,11 +1,8 @@
 import pygame
-import random
 
 from src.constants import WHITE, BG_COLOR
 from src.level import Level
-from src.objs.enemy import Enemy
 from src.objs.player import Player
-from src.objs.projectile import Projectile
 from src.scenes.scene import Scene
 
 class LevelScene(Scene):
@@ -30,8 +27,6 @@ class LevelScene(Scene):
         self.player.relative_adjust(self.game_surface, x_relative_pos=(1/2), y_relative_pos=(3/4))
         self.projectiles=[]
         self.enemies=[]
-
-        self.CREATE_PROJECTILE = pygame.USEREVENT
         self.level_id = 1
         self.level = Level(self, self.level_id)
         self.score = 0
@@ -49,7 +44,8 @@ class LevelScene(Scene):
 
             if event.type == pygame.KEYDOWN:
                 
-                pass
+                if event.key == pygame.K_ESCAPE:
+                    self.terminate()
 
         pressed = pygame.key.get_pressed()
         
@@ -85,7 +81,7 @@ class LevelScene(Scene):
                 self.player.health -= 1
 
                 if self.player.health <= 0:
-                    print("YOU SUCK!!! Score: {}".format(self.score))
+                    
                     self.terminate()
         
         for enemy in self.enemies:

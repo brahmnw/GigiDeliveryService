@@ -1,6 +1,7 @@
 import pygame
 
 from src.constants import FRAME_RATE
+from src.scenes.menu_splash_scene import MenuSplashScene
 from src.scenes.level_scene import LevelScene
 
 class Game:
@@ -8,7 +9,7 @@ class Game:
     def __init__(self, screen, clock):
         
         # set default scene
-        self.active_scene = LevelScene(screen, clock)
+        self.active_scene = MenuSplashScene(screen, clock)
         self.clock = clock
 
     def run(self):
