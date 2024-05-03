@@ -29,10 +29,10 @@ class Entity():
         self.x = position[0]
         self.y = position[1]
         self.hitbox_args = hitbox_args
-        self.render_scale = render_scale
         self.speed = speed
         self.sprite_width = sprite_width
         self.sprite_height = sprite_height
+        self.render_scale = render_scale
 
         # calculate hitbox values
 
@@ -49,16 +49,7 @@ class Entity():
 
         # load the sprite sheet for the entity and feed it into spritesheet
         sprite_sheet_image = pygame.image.load('assets/img/spritesheets/{0}.png'.format(sprite_name)).convert_alpha()
-        self.player_sprite_sheet = SpriteSheet(sprite_sheet_image)
-
-        # initiate all the different sprites for the entity
-        self.sprites = []
-
-        for frame in range(sprite_animation_frames):
-
-            self.sprites.append(
-                self.player_sprite_sheet.get_image(frame, sprite_width, sprite_height, render_scale)
-            )
+        self.sprites = SpriteSheet(sprite_sheet_image).get_sprites(sprite_animation_frames, sprite_width, sprite_height, render_scale)
 
         self.current_sprite = 0
         

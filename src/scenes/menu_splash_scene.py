@@ -28,7 +28,7 @@ class MenuSplashScene(Scene):
                     self.switch_scene(LevelScene(self.screen, self.clock))
 
     def update(self):
-        print('u forgot to override this')
+        
         pass
 
     def render(self):

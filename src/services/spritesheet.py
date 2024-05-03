@@ -18,3 +18,15 @@ class SpriteSheet:
         image.set_colorkey(BLACK)
 
         return image
+    
+    def get_sprites(self, sprite_animation_frames, sprite_width, sprite_height, render_scale):
+        
+        sprites = []
+        
+        for frame in range(sprite_animation_frames):
+
+            sprites.append(
+                self.get_image(frame, sprite_width, sprite_height, render_scale)
+            )
+        
+        return sprites
