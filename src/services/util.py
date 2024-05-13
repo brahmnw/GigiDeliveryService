@@ -6,3 +6,10 @@ def position_is_close(pos1,pos2, uncertainty_x=10, uncertainty_y=10):
             return True
         
     return False
+
+class EventHandler:
+    
+    def __init__(self):
+        pass
+    
+    
