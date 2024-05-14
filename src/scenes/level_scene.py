@@ -1,7 +1,7 @@
 import pygame
 
 from src.constants import WHITE, BG_COLOR
-from src.level import Level
+from src.services.level_man import LevelMan
 from src.objs.player import Player
 from src.scenes.scene import Scene
 
@@ -9,9 +9,9 @@ class LevelScene(Scene):
 
     """extends scene class. is used for level gameplay"""
 
-    def __init__(self, screen, clock):
+    def __init__(self, screen):
 
-        super().__init__(screen, clock)
+        super().__init__(screen)
 
         self.player = Player(
             "gigi2",
@@ -28,27 +28,14 @@ class LevelScene(Scene):
         self.projectiles=[]
         self.enemies=[]
         self.level_id = 1
-        self.level = Level(self, self.level_id)
+        self.level = LevelMan(self, self.level_id)
         self.score = 0
         self.starting_time = pygame.time.get_ticks()
         self.elapsed_time = self.starting_time
 
 
-    def process_input(self, events):
+    def key_pressed(self, pressed):
 
-        
-        for event in events:
-
-            if event.type == pygame.QUIT:
-                self.terminate()
-
-            if event.type == pygame.KEYDOWN:
-                
-                if event.key == pygame.K_ESCAPE:
-                    self.terminate()
-
-        pressed = pygame.key.get_pressed()
-        
         # deal with movements
 
         if pressed[pygame.K_w] or pressed[pygame.K_UP]:
@@ -65,7 +52,6 @@ class LevelScene(Scene):
 
     def update(self):
 
-        self.score += 1
         self.elapsed_time = pygame.time.get_ticks() - self.starting_time
         self.level.update_events(self.elapsed_time)
 
@@ -82,15 +68,17 @@ class LevelScene(Scene):
 
                 if self.player.health <= 0:
                     
-                    self.terminate()
+                    return 3
         
         for enemy in self.enemies:
-            is_attack = enemy.update_position()
-            if is_attack:
+            
+            if enemy.update_position():
                 enemy.attack(self)
 
             if (enemy.hitbox_left > self.screen.get_width()) or (enemy.hitbox_right < 0) or (enemy.hitbox_top > self.screen.get_height()) or (enemy.hitbox_bottom < 0):
                 self.enemies.remove(enemy)
+                
+        return 0
 
     def render(self):
         

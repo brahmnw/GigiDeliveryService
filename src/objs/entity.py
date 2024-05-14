@@ -3,7 +3,6 @@ import pygame
 
 from src.constants import HITBOX_RED
 from src.objs.element import Element
-from src.services.spritesheet import SpriteSheet
 
 class Entity(Element):
 

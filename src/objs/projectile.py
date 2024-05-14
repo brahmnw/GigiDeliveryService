@@ -1,7 +1,5 @@
 import math
 
-import pygame
-
 from src.objs.entity import Entity
 
 class Projectile(Entity):

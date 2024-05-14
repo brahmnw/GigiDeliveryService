@@ -1,6 +1,3 @@
-import pygame
-
-from src.constants import HITBOX_RED
 from src.objs.entity import Entity
 
 class Player(Entity):

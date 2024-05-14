@@ -1,11 +1,10 @@
 import json
-import pygame
+
 from src.objs.enemies.drone import Drone
 from src.objs.projectile import Projectile
-import time
 
 
-class Level:
+class LevelMan:
 
     def __init__(self, scene, level_id=1):
         self.scene = scene

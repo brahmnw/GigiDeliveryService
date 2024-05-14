@@ -1,31 +1,28 @@
 import pygame
 
 class Scene:
+    
     """
-    setting the base scene so the game can easily do its good work
+    setting the base scene so the scene manager can easily do its good work
     """
-    def __init__(self, screen, clock):
+    
+    def __init__(self, screen):
+        
         self.next_scene = self
         self.screen = screen
-        self.clock = clock
-
-    def process_input(self, events):
+        self.state = 0 
+    
+    def key_down(self, events) -> None:
+        pass
+    
+    def key_pressed(self, events) -> None:
         pass
 
-    def update(self):
-        print('u forgot to override this')
+    def update(self) -> int:
+        """should return True if starting new scene"""
+        return self.state
+
+    def render(self) -> None:
         pass
-
-    def render(self):
-        print('u forgot to override this')
-
-    def switch_scene(self, new_scene):
-        if new_scene == 'previous':
-            new_scene = self
-        self.next_scene = new_scene
-        
-
-    def terminate(self):
-        self.switch_scene(None)
 
     

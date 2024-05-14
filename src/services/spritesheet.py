@@ -7,7 +7,7 @@ class SpriteSheet:
     def __init__(self, sheet_image):
         self.sheet = sheet_image
 
-    def get_image(self, frame, width, height, scale=1):
+    def get_image(self, frame, width, height, scale=1) -> pygame.Surface:
         
         """
         Returns an image from a loaded spritesheet.
@@ -19,7 +19,7 @@ class SpriteSheet:
 
         return image
     
-    def get_sprites(self, sprite_animation_frames, sprite_width, sprite_height, render_scale):
+    def get_sprites(self, sprite_animation_frames, sprite_width, sprite_height, render_scale) -> list:
         
         sprites = []
         
