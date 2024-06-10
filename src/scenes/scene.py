@@ -3,12 +3,11 @@ import pygame
 class Scene:
     
     """
-    setting the base scene so the scene manager can easily do its good work
+    setting the base scene so the scene manager can easily do its good work without 
     """
     
     def __init__(self, screen):
         
-        self.next_scene = self
         self.screen = screen
         self.state = 0 
     

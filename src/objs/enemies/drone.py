@@ -18,7 +18,7 @@ class Drone(Enemy):
         self.attack = self.circle_attack
     
     
-    def update_position(self):
+    def update_position(self) -> bool:
 
         try:
             angle = (math.atan((self.position[1] - self.heading_towards[1])/(self.heading_towards[0] - self.position[0]))) 
@@ -30,12 +30,26 @@ class Drone(Enemy):
                 angle += math.pi
 
         except ZeroDivisionError:
-            angle = math.pi/2
+            
+            if self.y > self.heading_towards[1]:
+                angle = math.pi/2
+                
+            else:
+                angle = 3*math.pi/2
+            
+            if self.x > self.heading_towards[0]:
+                angle += math.pi
+
+            elif self.y >= self.heading_towards[1]:
+                angle += math.pi
 
         if self.movement_state == 0:
+            
             if util.position_is_close((self.x,self.y), self.heading_towards):
+                
                 self.heading_towards = self.end_position
                 self.movement_state = 1
+                
                 return True     
 
             self.x += self.speed * math.cos(angle)
@@ -46,4 +60,5 @@ class Drone(Enemy):
             self.x += self.speed * math.cos(angle)
             self.y -= self.speed * math.sin(angle)
 
-        self.update_hitbox()    
+        self.update_hitbox()
+        return False    

@@ -15,6 +15,8 @@ class Projectile(Entity):
         self.direction=direction
 
     def head_in_direction(self, angle, speed):
+        
+        """Uses trig to move projectile a certain speed towards the player"""
 
         angle = angle * (math.pi/180)
 
@@ -25,3 +27,4 @@ class Projectile(Entity):
         self.y -= move_y
 
         self.update_hitbox()
+        

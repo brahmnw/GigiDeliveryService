@@ -1,5 +1,6 @@
 import pygame
 from src.scenes.level_scene import LevelScene
+from src.scenes.level_complete_scene import LevelCompleteScene
 from src.scenes.start_scene import StartScene
 
 class SceneMan():
@@ -42,6 +43,9 @@ class SceneMan():
         elif state == 3:
             self.scene = StartScene(self.screen)
             
+        elif state == 4:
+            conditions = self.scene.level_conditions
+            self.scene = LevelCompleteScene(self.screen, *conditions)
         
         
         

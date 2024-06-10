@@ -19,7 +19,7 @@ class SpriteSheet:
 
         return image
     
-    def get_sprites(self, sprite_animation_frames, sprite_width, sprite_height, render_scale) -> list:
+    def get_sprites(self, sprite_animation_frames, sprite_width, sprite_height, render_scale=1) -> list:
         
         sprites = []
         

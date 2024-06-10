@@ -1,0 +1,14 @@
+{
+	"recipient": "boss test",
+	"recipient_spritesheet": "mimi.png",
+	"order_details": "testing",
+	"length":75000,
+	"boss": "dhar",
+	"voicelines": [
+	],
+	"level_events": [
+        [0, "spawn_boss", []],
+        [100, "rain_projectiles", [6,0]],
+        [80000, "end_level", []]
+	]
+}

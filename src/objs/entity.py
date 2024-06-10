@@ -7,7 +7,7 @@ from src.objs.element import Element
 class Entity(Element):
 
     """
-    this forp any objct that i put on the screeen
+    element + hitbox
 
     Args:
         sprite_name (str): used for spritesheets n stuff. naming convention for all assets this entity uses will follow this name
@@ -44,7 +44,7 @@ class Entity(Element):
         self.hitbox_right = self.hitbox[0] + self.hitbox[2]
         self.hitbox_bottom = self.hitbox[1] + self.hitbox[3]
     
-    def display(self, surface: pygame.Surface, animation_speed: float, show_hitbox=False):
+    def display(self, surface: pygame.Surface, animation_speed: float, show_hitbox=False) -> None:
 
         """
         drawing the sprijt on a surface.
@@ -62,7 +62,11 @@ class Entity(Element):
         if show_hitbox:
             pygame.draw.rect(surface, HITBOX_RED, self.hitbox, 2)
 
-    def update_hitbox(self):
+    def update_hitbox(self) -> None:
+        
+        """
+        updates all values for hitbox positions
+        """
 
         self.hitbox = (self.x+self.hitbox_args[0], self.y+self.hitbox_args[1], self.hitbox_args[2], self.hitbox_args[3])
         self.hitbox_rect = pygame.Rect(self.hitbox)
