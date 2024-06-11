@@ -32,7 +32,7 @@ class LevelScene(Scene):
         self.enemies=[]
         self.gui = []
         self.dialog = []
-        self.level_id = 2
+        self.level_id = 1
         self.level = LevelMan(self, self.level_id)
         self.score = 0
         self.starting_time = pygame.time.get_ticks()

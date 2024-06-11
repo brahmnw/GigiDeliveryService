@@ -32,12 +32,12 @@ class Drone(Enemy):
                 return True     
 
             self.x += self.speed * math.cos(angle)
-            self.y -= self.speed * math.sin(angle)
+            self.y += self.speed * math.sin(angle)
 
         else:
             
             self.x += self.speed * math.cos(angle)
-            self.y -= self.speed * math.sin(angle)
+            self.y += self.speed * math.sin(angle)
 
         self.update_hitbox()
         return False    
