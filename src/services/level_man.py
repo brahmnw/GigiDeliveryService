@@ -86,10 +86,10 @@ class LevelMan:
         dialogue_surface.blit(sprite_surface, (25,50))
         
         if dialogue_num is None:
-            dialogue=dialogue
+            dialogue = dialogue
             
         else:
-            dialogue=self.level_dict['voicelines'][dialogue_num][1]
+            dialogue = self.level_dict['voicelines'][dialogue_num]
         
         lines = textwrap.wrap(dialogue[1], 58)
         
@@ -129,7 +129,6 @@ class LevelMan:
     def spawn_boss(self) -> None:
         x = self.level_events[-2][0]
         for move in self.boss.moves:
-            print(self.level_events[-2][0])
             
             move[0] += x
             if move[1].startswith('boss.'):
@@ -139,7 +138,6 @@ class LevelMan:
                 move[1] = getattr(self, move[1])
         
             self.level_events.append(move)
-            print(self.level_events)
         
         
         self.level_events.sort(key=lambda x: int(x[0]))

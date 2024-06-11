@@ -20,28 +20,7 @@ class Drone(Enemy):
     
     def update_position(self) -> bool:
 
-        try:
-            angle = (math.atan((self.position[1] - self.heading_towards[1])/(self.heading_towards[0] - self.position[0]))) 
-
-            if self.x > self.heading_towards[0]:
-                angle += math.pi
-
-            elif self.y >= self.heading_towards[1]:
-                angle += math.pi
-
-        except ZeroDivisionError:
-            
-            if self.y > self.heading_towards[1]:
-                angle = math.pi/2
-                
-            else:
-                angle = 3*math.pi/2
-            
-            if self.x > self.heading_towards[0]:
-                angle += math.pi
-
-            elif self.y >= self.heading_towards[1]:
-                angle += math.pi
+        angle = util.position_to_angle((self.x,self.y), self.heading_towards)
 
         if self.movement_state == 0:
             

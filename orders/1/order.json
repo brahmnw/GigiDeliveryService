@@ -2,7 +2,7 @@
 	"recipient": "mimi",
 	"recipient_spritesheet": "mimi.png",
 	"order_details": "70 large cheese pizzas",
-	"length":75000,
+	"length":100000,
 	"boss": "dhar",
 	"voicelines": [
 		["weird phone fella", "hello welcome to frederick fazbore pizzer! to get you started try using W A S D to move!!!", "phone_guy.png"],
@@ -49,6 +49,6 @@
         [60000, "show_dialogue_text", [4]],
         [63000, "show_dialogue_text", [5]],
         [66000, "spawn_boss", []],
-        [80000, "end_level", []]
+        [100000, "end_level", []]
 	]
 }

@@ -2,8 +2,18 @@
 util file contains common functions between files.
 58
 """
+import math
 from pickle import TRUE
 from src.objs.element import Element
+
+def value_is_close(value1, value2, uncertainty=10) -> bool:
+    
+    """checks if val1 is close to val2 within the uncertainties provided"""
+    
+    if ((value1 - uncertainty) < value2) and ((value1 + uncertainty) > value2):
+        return True
+        
+    return False
 
 def position_is_close(pos1,pos2, uncertainty_x=10, uncertainty_y=10) -> bool:
     
@@ -31,3 +41,42 @@ def position_is_inside(pos,  element: Element) -> bool:
         
     else:
         return False
+
+def position_to_angle(pos1, pos2) -> float:
+    """converts two positions to angles"""
+    try:
+        angle = (math.atan((pos2[1] - pos1[1])/(pos1[0] - pos2[0]))) 
+
+    except ZeroDivisionError:
+            
+        if pos1[1] > pos2[1]:
+            return math.pi/2
+                
+        else:
+            return -math.pi/2
+
+    else:
+        """
+        if value_is_close(pos1[1], pos2[1]) and pos1[1] > pos2[1]:
+            return math.pi/2
+        elif value_is_close(pos1[1], pos2[1]) and pos1[1] < pos2[1]:
+            return -math.pi/2
+        elif value_is_close(pos1[0], pos2[0]) and pos1[0] > pos2[0]:
+            return 0
+        elif value_is_close(pos1[0], pos2[0]) and pos1[0] < pos2[0]:
+            return math.pi
+        """
+        
+        if pos1[0] < pos2[0] and pos1[1] > pos2[1]:
+            return angle
+        elif pos1[0] > pos2[0] and pos1[1] > pos2[1]:
+            return math.pi - angle
+        elif pos1[0] > pos2[0] and pos1[1] < pos2[1]:
+            return -math.pi + angle
+        elif pos1[0] < pos2[0] and pos1[1] < pos2[1]:
+            return -angle
+        elif pos1[0] > pos2[0]:
+            return math.pi
+        elif pos1[0] < pos2[0]:
+            return math.pi
+        
