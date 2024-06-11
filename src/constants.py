@@ -9,7 +9,7 @@ SCREEN_HEIGHT = 768
 TITLE = "GGDS"
 
 # game settings
-SHOW_HITBOX = True
+SHOW_HITBOX = False
 
 # colors
 BLACK = (0,0,0)
