@@ -125,6 +125,8 @@ class LevelMan:
         
         for i in range(num):
             self.spawn_projectile("bullet_round", ((self.scene.game_surface.get_width()/num)*i+offset,0),relative_positioning_y=True,speed=3)
+
+        pygame.mixer.Sound.play(self.scene.rain_sound)
     
     def spawn_boss(self) -> None:
         x = self.level_events[-2][0]

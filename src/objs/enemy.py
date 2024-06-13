@@ -1,3 +1,5 @@
+import pygame
+
 from src.objs.entity import Entity
 from src.objs.projectile import Projectile
 
@@ -14,6 +16,7 @@ class Enemy(Entity):
         projectile = Projectile("bullet_round", 1, (self.hitbox_x_center,self.hitbox_y_center), (8,8,16,16))
         projectile.direction = direction
         scene.projectiles.append(projectile)
+        pygame.mixer.Sound.play(scene.basic_sound)
 
     def circle_attack(self, scene, count=12, starting_angle=0):
         
@@ -22,5 +25,7 @@ class Enemy(Entity):
             projectile = Projectile("bullet_round", 1, (self.hitbox_x_center,self.hitbox_y_center), (8,8,16,16))
             projectile.direction = starting_angle+(i*(360//(count)))-180
             scene.projectiles.append(projectile)
+        
+        pygame.mixer.Sound.play(scene.circle_sound)
 
 

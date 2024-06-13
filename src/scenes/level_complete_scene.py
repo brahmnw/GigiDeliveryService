@@ -26,6 +26,7 @@ class LevelCompleteScene(Scene):
         self.state =  0
         
         self.buttons = [button.MenuButton((self.screen.get_width()/2-50, 550))] 
+        self.button_click_sound = pygame.mixer.Sound("assets/sounds/button_click.ogg")
     
     def key_down(self, key):
         
@@ -41,6 +42,7 @@ class LevelCompleteScene(Scene):
                 
                 if pygame.mouse.get_pressed()[0]:
                     self.state = button.on_click()
+                    pygame.mixer.Sound.play(self.button_click_sound)
                     
                 else:
                     button.on_hover()

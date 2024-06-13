@@ -22,7 +22,7 @@ class Boss(Enemy):
             [2300, 'boss.basic_attack', []],
             [2400, 'show_dialogue_text', [
                 None, 
-                ["Dhar Mann", "What's up dhar mann fam!", "phone_guy.png"]
+                ["dhar mann", "What's up dhar mann fam!", "phone_guy.png"]
             ]],
             [2500, 'rain_projectiles', [10, 10]],
             [2600, 'boss.basic_attack', []],
@@ -41,7 +41,7 @@ class Boss(Enemy):
             [7000, 'boss.circle_attack', [12, 10]],
             [7100, 'show_dialogue_text', [
                 None, 
-                ["Dhar Mann", "that's it. i've had it up to here with you. angry mode activated.", "phone_guy.png"]
+                ["dhar mann", "that's it. i've had it up to here with you. angry mode activated.", "phone_guy.png"]
             ]],
             [10000, 'clear_dialogue', []],
             [10500, 'rain_projectiles', [10, 0]],

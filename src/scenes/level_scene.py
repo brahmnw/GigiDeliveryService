@@ -40,6 +40,14 @@ class LevelScene(Scene):
         self.state = 0
         self.player.invulnerability_timer = 0
 
+        # sounds
+
+        self.hurt_sound = pygame.mixer.Sound("assets/sounds/ouch.ogg")
+        self.circle_sound = pygame.mixer.Sound("assets/sounds/circle.ogg")
+        self.rain_sound = pygame.mixer.Sound("assets/sounds/rain.ogg")
+        self.basic_sound = pygame.mixer.Sound("assets/sounds/shoot.ogg")
+        
+
     def key_pressed(self, pressed):
 
         # deal with movements
@@ -76,7 +84,8 @@ class LevelScene(Scene):
             if self.player.invulnerability_timer == 0:
                 if self.player.hitbox_rect.colliderect(projectile.hitbox_rect):
                     self.projectiles.remove(projectile)
-                    self.player.invulnerability_timer += 60
+                    pygame.mixer.Sound.play(self.hurt_sound)
+                    self.player.invulnerability_timer += 15
                 
                     self.player.health -= 1
 

@@ -16,6 +16,7 @@ class StartScene(Scene):
         self.state =  0
         
         self.buttons = [button.PlayButton((100, 550)), button.ExitButton((100, 600))] 
+        self.button_click_sound = pygame.mixer.Sound("assets/sounds/button_click.ogg")
     
     def key_down(self, key):
         
@@ -31,6 +32,7 @@ class StartScene(Scene):
                 
                 if pygame.mouse.get_pressed()[0]:
                     self.state = button.on_click()
+                    pygame.mixer.Sound.play(self.button_click_sound)
                     
                 else:
                     button.on_hover()

@@ -15,6 +15,7 @@ class SceneMan():
         mixer.music.load('assets/music/menu.mp3')
         self.screen = screen
         self.scene = StartScene(screen)
+        mixer.music.set_volume(0.1)
         mixer.music.play(-1)
     
     def process(self):
