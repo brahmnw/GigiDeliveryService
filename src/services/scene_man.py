@@ -1,4 +1,5 @@
 import pygame
+from pygame import mixer
 from src.scenes.level_scene import LevelScene
 from src.scenes.level_complete_scene import LevelCompleteScene
 from src.scenes.start_scene import StartScene
@@ -11,8 +12,10 @@ class SceneMan():
     
     def __init__(self, screen):
         
+        mixer.music.load('assets/music/menu.mp3')
         self.screen = screen
         self.scene = StartScene(screen)
+        mixer.music.play(-1)
     
     def process(self):
         
@@ -38,14 +41,33 @@ class SceneMan():
             self.scene = None
             
         elif state == 2:
+            mixer.music.stop()
+            mixer.music.unload()
+            mixer.music.load('assets/music/level.mp3')
             self.scene = LevelScene(self.screen)
+            mixer.music.play(-1)
             
         elif state == 3:
+            mixer.music.stop()
+            mixer.music.unload()
+            mixer.music.load('assets/music/menu.mp3')
             self.scene = StartScene(self.screen)
-            
+            mixer.music.play(-1)
+
         elif state == 4:
             conditions = self.scene.level_conditions
+            mixer.music.stop()
+            mixer.music.unload()
+            
             self.scene = LevelCompleteScene(self.screen, *conditions)
+
+            if conditions[0] == "WIN!":
+                mixer.music.load('assets/music/win.mp3')
+                mixer.music.play(-1)
+            else:
+                mixer.music.load('assets/music/lose.mp3')
+                mixer.music.play(-1)
+            
         
         
         

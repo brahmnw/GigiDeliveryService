@@ -21,9 +21,6 @@ class StartScene(Scene):
         
         if key == pygame.K_ESCAPE:
             self.state = 1
-                    
-        else:
-            self.state = 2
             
     def update(self) -> int:
         

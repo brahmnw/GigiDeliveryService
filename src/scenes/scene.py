@@ -18,7 +18,7 @@ class Scene:
         pass
 
     def update(self) -> int:
-        """should return True if starting new scene"""
+        """should return scene number if starting new scene"""
         return self.state
 
     def render(self) -> None:
